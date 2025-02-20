@@ -1,0 +1,15 @@
+[project]
+name = "video-gif-converter"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Manjusaka", email = "me@manjusaka.me"},
+]
+dependencies = ["pyqt6>=6.8.1", "PyQt-Fluent-Widgets[full]>=1.7.5"]
+requires-python = "==3.13.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
