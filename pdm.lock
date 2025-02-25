@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:ad92260017aa34702147a189b2d973992ab57d242ca82ad237d13f3f9798d143"
+content_hash = "sha256:158af9bd2c5e28a9b2543ba1c777add81f387a763e02c83000d4a359a20464cd"
 
 [[metadata.targets]]
 requires_python = "==3.13.*"
@@ -56,4 +56,15 @@ files = [
     {file = "PyQt6_sip-13.10.0-cp313-cp313-win_amd64.whl", hash = "sha256:571900c44a3e38738d696234d94fe2043972b9de0633505451c99e2922cb6a34"},
     {file = "PyQt6_sip-13.10.0-cp313-cp313-win_arm64.whl", hash = "sha256:39cba2cc71cf80a99b4dc8147b43508d4716e128f9fb99f5eb5860a37f082282"},
     {file = "pyqt6_sip-13.10.0.tar.gz", hash = "sha256:d6daa95a0bd315d9ec523b549e0ce97455f61ded65d5eafecd83ed2aa4ae5350"},
+]
+
+[[package]]
+name = "python-mpv"
+version = "1.0.7"
+requires_python = ">=3.9"
+summary = "A python interface to the mpv media player"
+groups = ["default"]
+files = [
+    {file = "python_mpv-1.0.7-py3-none-any.whl", hash = "sha256:8546838b16abe6dc643832dabb84c4814c03f44cfb1d7f7dfda26ff79b9be236"},
+    {file = "python_mpv-1.0.7.tar.gz", hash = "sha256:afc2f2677b08dcccf1e9e7a76d64ee4f603541cf6a750ebf4cce957be90ec836"},
 ]
