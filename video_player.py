@@ -191,6 +191,20 @@ class VideoPlayerWidget(QWidget):
                 position=InfoBarPosition.TOP
             )
             return
+        
+        # 如果之前有播放的视频，先停止
+        if self.video_path:
+            try:
+                self.mpv_widget.mpv.stop()
+            except:
+                pass
+            
+        # 重置进度条和时间显示
+        self.progress_slider.blockSignals(True)
+        self.progress_slider.setValue(0)
+        self.progress_slider.blockSignals(False)
+        self.current_time_label.setText("00:00:00")
+        self.total_time_label.setText("00:00:00")
             
         self.video_path = path
         try:
