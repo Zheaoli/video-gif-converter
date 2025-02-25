@@ -1,9 +1,10 @@
 from PyQt6.QtCore import QTimer, Qt, QSize
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QFrame, QLabel
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QFrame, QLabel,QFileDialog
 from qfluentwidgets import (Slider, ToggleToolButton, FluentIcon, InfoBar,
-                           InfoBarPosition)
+                           InfoBarPosition,TransparentToolButton )
 import os
 from mpv_widget import MpvWidget
+
 class VideoPlayerWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -14,6 +15,17 @@ class VideoPlayerWidget(QWidget):
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(10, 10, 10, 10)
         main_layout.setSpacing(5)
+        
+        # 顶部工具栏布局
+        toolbar_layout = QHBoxLayout()
+        toolbar_layout.setContentsMargins(5, 5, 5, 5)
+        
+        # 添加打开文件按钮
+        self.open_file_btn = TransparentToolButton(FluentIcon.FOLDER_ADD, self)
+        self.open_file_btn.setToolTip("打开视频文件")
+        self.open_file_btn.clicked.connect(self.open_file_dialog)
+        toolbar_layout.addWidget(self.open_file_btn)
+        toolbar_layout.addStretch(1)  # 占据剩余空间
         
         # 创建播放器区域
         self.player_frame = QFrame()
@@ -89,6 +101,7 @@ class VideoPlayerWidget(QWidget):
         control_layout.addLayout(playback_layout)
         
         # 将组件添加到主布局
+        main_layout.addLayout(toolbar_layout)
         main_layout.addWidget(self.player_frame, 1)  # 播放器区域占据剩余空间
         main_layout.addLayout(control_layout)
         
@@ -124,6 +137,18 @@ class VideoPlayerWidget(QWidget):
                 border-radius: 2px;
             }
         """)
+    
+    def open_file_dialog(self):
+        """打开文件选择对话框"""
+        file_dialog = QFileDialog(self)
+        file_dialog.setWindowTitle("选择视频文件")
+        file_dialog.setNameFilter("视频文件 (*.mp4 *.mkv *.avi *.mov *.wmv *.flv *.webm *.m4v *.mpg *.mpeg *.3gp *.ogv);;所有文件 (*.*)")
+        file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+        
+        if file_dialog.exec():
+            selected_files = file_dialog.selectedFiles()
+            if selected_files:
+                self.load_video(selected_files[0])
         
     def format_time(self, seconds):
         """将秒数转换为 HH:MM:SS 格式"""
@@ -170,7 +195,8 @@ class VideoPlayerWidget(QWidget):
         self.video_path = path
         try:
             self.mpv_widget.mpv.play(path)
-            self.mpv_widget.mpv.pause = True  # 默认暂停状态
+            self.mpv_widget.mpv.pause = False  # 加载后自动播放
+            self.play_pause_btn.setChecked(True)  # 更新按钮状态
             
             # 显示成功通知
             InfoBar.success(

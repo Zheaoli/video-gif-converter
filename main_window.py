@@ -33,20 +33,3 @@ class MainWindow(FluentWindow):
 
         # 移除导航界面，改用单一界面模式
         self.navigationInterface.setVisible(False)
-
-        # 测试加载视频
-        self.test_load_video()
-
-    def test_load_video(self):
-        # 仅用于测试 - 替换为实际视频路径
-        video_path = "/home/manjusaka/Documents/Laid-Back Camp - S01E01 - Mount Fuji and Curry Noodles HDTV-1080p-new.mkv"
-        if os.path.exists(video_path):
-            self.video_player.load_video(video_path)
-        else:
-            # 显示提示
-            InfoBar.info(
-                title="提示",
-                content="请打开一个视频文件以开始播放",
-                parent=self,
-                position=InfoBarPosition.TOP,
-            )
